@@ -6,8 +6,8 @@
 package Modelo;
 
 /**
- *
- * @author daw1
+ * Clase para poder crear coches y almacenarlos en una lista de coches.
+ * @author christian begines
  */
 public class Coche {
     
@@ -17,7 +17,15 @@ public class Coche {
     protected String color;
     protected int año;
     protected int precio;
-
+    /**
+     * Construcotor del coche.
+     * @param matricula Matricula del coche.
+     * @param marca Marca del coche.
+     * @param modelo Modelo del coche
+     * @param color Color del coche
+     * @param año Año de fabricacion.
+     * @param precio Precio de venta en el coche.
+     */
     public Coche(String matricula, String marca, String modelo, String color, int año, int precio) {
         this.matricula = matricula;
         this.marca = marca;
@@ -26,7 +34,5 @@ public class Coche {
         this.año = año;
         this.precio = precio;
     }
-    public Coche(){
-        
-    }
+    
 }

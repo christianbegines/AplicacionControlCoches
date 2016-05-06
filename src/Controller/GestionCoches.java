@@ -26,8 +26,10 @@ import java.util.logging.Logger;
 import static sun.security.jgss.GSSUtil.login;
 
 /**
- *
- * @author daw1
+ *Clase que ayuda a la gestion en la base de datos coches.
+ * @author christian begines
+ * @since 2016
+ * 
  */
 public class GestionCoches {
 
@@ -39,7 +41,11 @@ public class GestionCoches {
     private String matricula = "", marca = "", modelo = "", color = "", linea = "";
     private Integer año = 0, precio = 0;
     
-
+    /**
+     * Establece la conexion en la base de datos de mySQL.
+     * @return establecido un boolean, que es true al conectarse sino quedara en false
+     * @throws SQLException si la conexion no se realiza se capturara la excepcion
+     */
     public boolean crearConexion() throws SQLException {
         boolean establecido = false;
         conexion = DriverManager.getConnection(url, login, password);
@@ -50,19 +56,29 @@ public class GestionCoches {
         return establecido;
 
     }
-    
+    /**
+     * Crea la tabla datos_coche en la base de datos coches.
+     * @return Retorna un boolean producido por la ejecucion del psCreaTabla.execute();
+     * @throws SQLException La excepcion sera capturada cuando nose de un error el create del sql.
+     */
     public boolean crearTablaCoches() throws SQLException {
         PreparedStatement psCreaTabla;
         String crearTabla = "CREATE TABLE datos_coche (matricula varchar(10) NOT NULL,marca varchar(45) DEFAULT NULL,modelo  varchar(45) DEFAULT NULL,color varchar(45) DEFAULT NULL,año int(11) DEFAULT NULL,precio int(11) DEFAULT NULL,PRIMARY KEY (`matricula`)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
         psCreaTabla = conexion.prepareStatement(crearTabla);
         return psCreaTabla.execute();
     }
-
+    /**
+     * Cargara la tabla recojida por un BufferedReader y lo cargara en 
+     * la base de datos.
+     * @param archivo El archivo leido por el BufferedReader de el cual
+     * obtendra los datos a introducir en la base de datos.
+     * @return numFilas Retorna el numero de filas introducidas correctamente.
+     */
     public int cargarTablaCoches(File archivo) {
-        int numFilas = 0;
-        
+        int numFilas = 0;    
         PreparedStatement psInsertarCoches;
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            //recorre lo leido y lo asigna a los atributos
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(":");
                 matricula = datos[0];
@@ -72,6 +88,7 @@ public class GestionCoches {
                 año = Integer.parseInt(datos[4]);
                 precio = Integer.parseInt(datos[5]);
                 try {
+                    //carga en el select los datos, para ser introducidos en la base de datos.
                     String insertCoches = "insert into datos_coche(matricula,marca,modelo,color,año,precio) values (?,?,?,?,?,?)";
 
                     psInsertarCoches = conexion.prepareStatement(insertCoches);
@@ -81,7 +98,7 @@ public class GestionCoches {
                     psInsertarCoches.setString(4, color);
                     psInsertarCoches.setInt(5, año);
                     psInsertarCoches.setInt(6, precio);
-
+                    
                     if (psInsertarCoches.executeUpdate() == 1) {
                         numFilas++;
                     }
@@ -97,8 +114,12 @@ public class GestionCoches {
         }
         return numFilas;
     }
-    
-    public List<Coche> mostrarCoches(String sql){
+    /**
+     * Muestra en la table de la aplicacion todos los registros de los coches, 
+     * obrenidos por el select buscarTodos.    
+     * @return listaCoches Retorna la lista de los coches mostrados y los carga en la tabla.
+     */
+    public List<Coche> mostrarCoches(){
         List<Coche> listaCoches= new ArrayList();
         ResultSet cochesMostrados;
         String buscarTodos="select * from datos_coche";
