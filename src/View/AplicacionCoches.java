@@ -17,9 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class AplicacionCoches extends javax.swing.JFrame {
     
-    /**
-     * Creates new form AplicacionCoches
-     */
+    
     private GestionCoches gc;
     
     public AplicacionCoches() {
@@ -31,10 +29,10 @@ public class AplicacionCoches extends javax.swing.JFrame {
             }            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "!Error " + ex.getMessage() + ex.getErrorCode(), "Ventana check", JOptionPane.INFORMATION_MESSAGE);
-        }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
+        
+        } catch (Exception e) {
+            System.out.println(e);
+       }
     }
 
     /**
