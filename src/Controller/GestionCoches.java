@@ -147,4 +147,12 @@ public class GestionCoches {
         
         return listaCoches;
     }
+    public boolean borrarTabla() throws SQLException{
+        boolean respuesta;
+        String borrar="drop table  if exists datos_coche";
+        PreparedStatement psBorrar;
+        psBorrar=conexion.prepareStatement(borrar);
+        respuesta=psBorrar.execute();
+        return respuesta;
+    }
 }

@@ -57,8 +57,9 @@ public class AplicacionCoches extends javax.swing.JFrame {
         botonCargarDatos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCoches = new javax.swing.JTable();
-        botonMostrarTabla = new javax.swing.JToggleButton();
         textoConexion = new javax.swing.JLabel();
+        botonBorrar = new javax.swing.JButton();
+        botonMostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,61 +108,75 @@ public class AplicacionCoches extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaCoches);
 
-        botonMostrarTabla.setText("mostrar base de datos");
-        botonMostrarTabla.addActionListener(new java.awt.event.ActionListener() {
+        textoConexion.setToolTipText("");
+
+        botonBorrar.setText("Borrar tabla");
+        botonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMostrarTablaActionPerformed(evt);
+                botonBorrarActionPerformed(evt);
             }
         });
 
-        textoConexion.setToolTipText("");
+        botonMostrar.setText("Mostrar Tabla Coches");
+        botonMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMostrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(textoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(botonCargarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(botonMostrarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)))
+                .addComponent(textoRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonCargarDatos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonBorrar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(191, 191, 191)
+                            .addComponent(botonCargarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonCargarTabla)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelText)
                     .addComponent(botonCargarDatos))
-                .addGap(18, 18, 18)
-                .addComponent(botonMostrarTabla)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonMostrar)
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(textoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(botonBorrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(textoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -207,7 +222,22 @@ public class AplicacionCoches extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonCargarDatosActionPerformed
 
-    private void botonMostrarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarTablaActionPerformed
+    private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
+        try {
+            boolean respuesta;
+            respuesta =gc.borrarTabla();
+            tablaCoches.setModel(new DefaultTableModel());
+            if(respuesta==false){
+            JOptionPane.showMessageDialog(rootPane, "Tabla borrada");
+        }else {
+                JOptionPane.showMessageDialog(rootPane, "Tabla Borrada", null, JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (SQLException ex) {
+           
+        }
+    }//GEN-LAST:event_botonBorrarActionPerformed
+
+    private void botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarActionPerformed
        String consulta= "select * from datos_coche";
        String [] filas = new String[6];
        String [] titulos = { "Matricula", "Marca","Modelo","Color","Año","Precio"};
@@ -225,7 +255,7 @@ public class AplicacionCoches extends javax.swing.JFrame {
        this.tablaCoches.setModel(tabla);
          
        
-    }//GEN-LAST:event_botonMostrarTablaActionPerformed
+    }//GEN-LAST:event_botonMostrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,9 +293,10 @@ public class AplicacionCoches extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonCargarDatos;
     private javax.swing.JButton botonCargarTabla;
-    private javax.swing.JToggleButton botonMostrarTabla;
+    private javax.swing.JButton botonMostrar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelText;
     private javax.swing.JTable tablaCoches;
