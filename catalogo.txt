@@ -1,3 +1,4 @@
 6666-CYG:Renault:Megane:Negro:2002:2400
 5555-AAC:Seat:Ibiza:Blanco:2001:1800
-2222-BVN:Opel:Vectra:gris:2006:50002345-VLC:Porche:CarreraGT3:negro:2010:10000
+2222-BVN:Opel:Vectra:gris:2006:5000
+2345-VLC:Porche:CarreraGT3:negro:2010:10000

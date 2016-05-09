@@ -15,8 +15,8 @@ public class Coche {
     protected String marca;
     protected String modelo;
     protected String color;
-    protected int año;
-    protected int precio;
+    protected Integer año;
+    protected Integer precio;
     /**
      * Construcotor del coche.
      * @param matricula Matricula del coche.
@@ -32,6 +32,54 @@ public class Coche {
         this.modelo = modelo;
         this.color = color;
         this.año = año;
+        this.precio = precio;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Integer getAño() {
+        return año;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
+    public Integer getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
     

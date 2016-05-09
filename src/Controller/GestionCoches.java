@@ -34,7 +34,7 @@ import static sun.security.jgss.GSSUtil.login;
 public class GestionCoches {
 
     private Connection conexion;
-    private static String bd = "parques";
+    private static String bd = "coches";
     private static String login = "root";
     private static String password = "root";
     private static String url = "jdbc:mysql://localhost:3306/" + bd;
@@ -62,10 +62,12 @@ public class GestionCoches {
      * @throws SQLException La excepcion sera capturada cuando nose de un error el create del sql.
      */
     public boolean crearTablaCoches() throws SQLException {
+        boolean respuesta;
         PreparedStatement psCreaTabla;
-        String crearTabla = "CREATE TABLE datos_coche (matricula varchar(10) NOT NULL,marca varchar(45) DEFAULT NULL,modelo  varchar(45) DEFAULT NULL,color varchar(45) DEFAULT NULL,año int(11) DEFAULT NULL,precio int(11) DEFAULT NULL,PRIMARY KEY (`matricula`)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        String crearTabla = "CREATE TABLE if not exists datos_coche (matricula varchar(10) NOT NULL,marca varchar(45) DEFAULT NULL,modelo  varchar(45) DEFAULT NULL,color varchar(45) DEFAULT NULL,año int(11) DEFAULT NULL,precio int(11) DEFAULT NULL,PRIMARY KEY (`matricula`)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
         psCreaTabla = conexion.prepareStatement(crearTabla);
-        return psCreaTabla.execute();
+        respuesta =psCreaTabla.execute();
+        return respuesta;
     }
     /**
      * Cargara la tabla recojida por un BufferedReader y lo cargara en 
