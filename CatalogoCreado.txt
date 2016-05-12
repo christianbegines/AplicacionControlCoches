@@ -1,0 +1,32 @@
+
+Coches nº1
+Matricula.......2222-BVN
+Marca.......Opel
+Modelo.......Vectra
+Color.......gris
+Año.......2006
+Precio.......5000
+
+Coches nº2
+Matricula.......2345-VLC
+Marca.......Porche
+Modelo.......CarreraGT3
+Color.......negro
+Año.......2010
+Precio.......10000
+
+Coches nº3
+Matricula.......5555-AAC
+Marca.......Seat
+Modelo.......Ibiza
+Color.......Blanco
+Año.......2001
+Precio.......1800
+
+Coches nº4
+Matricula.......6666-CYG
+Marca.......Renault
+Modelo.......Megane
+Color.......Negro
+Año.......2002
+Precio.......2400

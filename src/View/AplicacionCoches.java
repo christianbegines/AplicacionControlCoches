@@ -8,6 +8,8 @@ package View;
 import Controller.GestionCoches;
 import Modelo.Coche;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,31 +19,30 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Clase que extiende de JFrame y implemente la aplicacion para
- * cargar coches en la tabla.
+ * Clase que extiende de JFrame y implemente la aplicacion para cargar coches en
+ * la tabla.
+ *
  * @author christian begines
  */
 public class AplicacionCoches extends javax.swing.JFrame {
-    
-    
-   
+
     /**
-     * Constructor el cual crea una Gestion coche y se conecta a la base de datos
-     * a traves del metodo <code>crearConexion()</code>.
-     */    
+     * Constructor el cual crea una Gestion coche y se conecta a la base de
+     * datos a traves del metodo <code>crearConexion()</code>.
+     */
     public AplicacionCoches() {
         initComponents();
-        gc= new GestionCoches();
+        gc = new GestionCoches();
         try {
-            if(gc.crearConexion()==true){
+            if (gc.crearConexion() == true) {
                 this.textoConexion.setText("Conexion establecida");
-            }            
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "!Error " + ex.getMessage() + ex.getErrorCode(), "Ventana check", JOptionPane.INFORMATION_MESSAGE);
-        
+
         } catch (Exception e) {
             System.out.println(e);
-       }
+        }
     }
 
     /**
@@ -60,6 +61,7 @@ public class AplicacionCoches extends javax.swing.JFrame {
         textoConexion = new javax.swing.JLabel();
         botonBorrar = new javax.swing.JButton();
         botonMostrar = new javax.swing.JButton();
+        botonExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +126,13 @@ public class AplicacionCoches extends javax.swing.JFrame {
             }
         });
 
+        botonExportar.setText("Exportar");
+        botonExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonExportarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +151,9 @@ public class AplicacionCoches extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(textoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonBorrar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonExportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(40, 40, 40)
@@ -173,7 +184,9 @@ public class AplicacionCoches extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(botonBorrar))
+                        .addComponent(botonBorrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonExportar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(textoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -183,79 +196,101 @@ public class AplicacionCoches extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Control de ActionPerformed del boton cargarTabla
+     *
      * @param evt evento producido por el boton
      */
     private void botonCargarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTablaActionPerformed
-      boolean resultado;
+        boolean resultado;
         try {
-            resultado=gc.crearTablaCoches();
-            if(resultado==false){
+            resultado = gc.crearTablaCoches();
+            if (resultado == false) {
                 JOptionPane.showMessageDialog(rootPane, "Tabla Creada");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Tabla no creada", null, JOptionPane.WARNING_MESSAGE);
             }
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "!Error " + ex.getMessage() + ex.getErrorCode(), "Ventana check", JOptionPane.INFORMATION_MESSAGE);
         }
-      
+
     }//GEN-LAST:event_botonCargarTablaActionPerformed
 
     private void textoRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoRutaMouseClicked
-       final JFileChooser fc = new JFileChooser();
-       int indice = fc.showOpenDialog(null);
-       if (indice == JFileChooser.APPROVE_OPTION){
-           fichero =fc.getSelectedFile();
-           textoRuta.setText(fichero.getAbsolutePath());
-       }
-       
+        final JFileChooser fc = new JFileChooser();
+        int indice = fc.showOpenDialog(null);
+        if (indice == JFileChooser.APPROVE_OPTION) {
+            fichero = fc.getSelectedFile();
+            textoRuta.setText(fichero.getAbsolutePath());
+        }
+
     }//GEN-LAST:event_textoRutaMouseClicked
 
     private void botonCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarDatosActionPerformed
-        int registros =gc.cargarTablaCoches(fichero);
-        if(registros!=0){
+        int registros = gc.cargarTablaCoches(fichero);
+        if (registros != 0) {
             JOptionPane.showMessageDialog(rootPane, "Datos Cargados");
-        }else {
-                JOptionPane.showMessageDialog(rootPane, "Datos NO cargados", null, JOptionPane.WARNING_MESSAGE);
-            }
-        
-        
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Datos NO cargados", null, JOptionPane.WARNING_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_botonCargarDatosActionPerformed
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         try {
             boolean respuesta;
-            respuesta =gc.borrarTabla();
+            respuesta = gc.borrarTabla();
             tablaCoches.setModel(new DefaultTableModel());
-            if(respuesta==false){
-            JOptionPane.showMessageDialog(rootPane, "Tabla borrada");
-        }else {
+            if (respuesta == false) {
+                JOptionPane.showMessageDialog(rootPane, "Tabla borrada");
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Tabla Borrada", null, JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException ex) {
-           
+
         }
     }//GEN-LAST:event_botonBorrarActionPerformed
 
     private void botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarActionPerformed
-       String consulta= "select * from datos_coche";
-       String [] filas = new String[6];
-       String [] titulos = { "Matricula", "Marca","Modelo","Color","Año","Precio"};
-       DefaultTableModel tabla=new DefaultTableModel(null,titulos);
-       List<Coche> listaCoches = gc.mostrarCoches();
-       for (Coche c: listaCoches){
-           filas[0]=c.getMatricula();
-           filas[1]=c.getMarca();
-           filas[2]=c.getModelo();
-           filas[3]=c.getColor();
-           filas[4]=c.getAño().toString();
-           filas[5]=c.getPrecio().toString();
-           tabla.addRow(filas);
-       }
-       this.tablaCoches.setModel(tabla);
-         
-       
+        String consulta = "select * from datos_coche";
+        String[] filas = new String[6];
+        String[] titulos = {"Matricula", "Marca", "Modelo", "Color", "Año", "Precio"};
+        tabla = new DefaultTableModel(null, titulos);
+        List<Coche> listaCoches = gc.mostrarCoches();
+        for (Coche c : listaCoches) {
+            filas[0] = c.getMatricula();
+            filas[1] = c.getMarca();
+            filas[2] = c.getModelo();
+            filas[3] = c.getColor();
+            filas[4] = c.getAño().toString();
+            filas[5] = c.getPrecio().toString();
+            tabla.addRow(filas);
+        }
+        this.tablaCoches.setModel(tabla);
+
+
     }//GEN-LAST:event_botonMostrarActionPerformed
+
+    private void botonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonExportarActionPerformed
+        boolean resultado;
+        final JFileChooser fc = new JFileChooser();
+        int indice = fc.showSaveDialog(this);
+        if (indice == JFileChooser.APPROVE_OPTION) {
+            try {
+                ficheroCatalogo = fc.getSelectedFile().toPath();
+                
+                resultado = gc.generarCatalogo(tablaCoches.getModel(), ficheroCatalogo);
+                if (resultado == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Datos Exportados");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Datos No Exportados", null, JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, "Error :");
+            }
+
+        }
+    }//GEN-LAST:event_botonExportarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,6 +331,7 @@ public class AplicacionCoches extends javax.swing.JFrame {
     private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonCargarDatos;
     private javax.swing.JButton botonCargarTabla;
+    private javax.swing.JButton botonExportar;
     private javax.swing.JButton botonMostrar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelText;
@@ -303,6 +339,9 @@ public class AplicacionCoches extends javax.swing.JFrame {
     private javax.swing.JLabel textoConexion;
     private javax.swing.JTextField textoRuta;
     // End of variables declaration//GEN-END:variables
+    Path ficheroCatalogo;
     File fichero;
+
+    DefaultTableModel tabla;
     private GestionCoches gc;
 }
